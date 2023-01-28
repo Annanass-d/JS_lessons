@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework lesson 8</title>
+</head>
+
+<body>
+    <ol class="list">
+        <li>Элемент списка</li>
+        <li>Элемент списка</li>
+        <li>Элемент списка</li>
+    </ol>
+    <button class="add-li">Добавить эл-т списка</button>
+    <button class="del-li1">Удалить 1й эл-т списка</button>
+    <button class="toggle-class">Класс 'click'</button>
+
+    <script>
+        // Создать в html список состоящий из 3-х произвольных элементов li        
+
+        const list = document.querySelector('.list');
+        const btnAL = document.querySelector('.add-li');
+        const btnDL = document.querySelector('.del-li1');
+        const btnTC = document.querySelector('.toggle-class');
+
+        // Нужно создать кнопку которая будет добавлять элементы списка с текстом “новый элемент списка”
+        btnAL.addEventListener('click', function (e) {
+            const newLi = document.createElement('li');
+            newLi.textContent = 'Новый элемент списка';
+            list.appendChild(newLi);
+        });
+        
+        // Создать кнопку, которая будет удалять первый элемент из созданного списка
+        btnDL.addEventListener('click', function (e) {
+            list.firstChild.remove();
+        });
+
+        // Создать кнопку, при клике на которую ей добавляется-убирается класс “click”
+        btnTC.addEventListener('click', function (e) {
+            btnTC.classList.toggle('click');
+        });
+    </script>
+</body>
+
+</html>
