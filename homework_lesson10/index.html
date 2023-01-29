@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Homework lesson 10</title>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <script src="data.js"></script>
+    <script>
+        const data = JSON.parse(dataInfo);
+        console.log(data);
+
+        const boxEl = document.querySelector('.container');
+
+        data.forEach(element => {
+            const divEl = document.createElement('div');
+            divEl.classList.add('content'); 
+            boxEl.appendChild(divEl);
+
+            const imgEl = document.createElement('img');
+            imgEl.classList.add('content__img');
+            imgEl.setAttribute('alt', 'pixel monster')
+            imgEl.src = element.url;
+            divEl.appendChild(imgEl);
+
+            const nameEl = document.createElement('h3');
+            nameEl.classList.add = ('content__name');
+            nameEl.textContent = element.name;
+            divEl.appendChild(nameEl);
+
+            const textEl = document.createElement('p');
+            textEl.classList.add('content__text');
+            textEl.textContent = element.description;
+            divEl.appendChild(textEl);
+
+            const buttonEl = document.createElement('button');
+            buttonEl.classList.add('content__button');
+            buttonEl.textContent = element.descBtn;
+            divEl.appendChild(buttonEl);
+        });
+    </script>
+</body>
+
+</html>
