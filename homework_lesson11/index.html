@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <title>Homework lesson 11</title>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <script src="data.js"></script>
+    <script>
+        const data = JSON.parse(dataProducts);
+
+        const container = document.querySelector('.container');
+
+
+        data.forEach(element => {
+            const product = document.createElement('div');
+            product.classList.add('product');
+            container.appendChild(product);
+
+            const imgDiv = document.createElement('div');
+            imgDiv.classList.add('product__img');
+            product.appendChild(imgDiv);
+
+            const img = document.createElement('img');
+            img.setAttribute('alt', 'product photo');
+            img.src = element.img;
+            imgDiv.appendChild(img);
+
+            const content = document.createElement('div');
+            content.classList.add('product__content');
+            product.appendChild(content);
+
+            const title = document.createElement('h1');
+            title.classList.add('product__title');
+            title.textContent = element.title;
+            content.appendChild(title);
+
+            const description = document.createElement('p');
+            description.classList.add('product__description');
+            description.textContent = element.description;
+            content.appendChild(description);
+
+            const price = document.createElement('p');
+            price.classList.add('product__price');
+            price.textContent = element.price;
+            content.appendChild(price);
+
+        });
+    </script>
+</body>
+
+</html>
