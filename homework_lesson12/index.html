@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <title>Homework lesson 12</title>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <div class="cart">
+        <h3 class="cart__heading">Cart items</h3>
+        <div class="cart__container"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const data = JSON.parse(dataProducts);
+
+
+        // Контейнер для католога товаров
+        const container = document.querySelector('.container');
+
+
+        // Контейнер для корзины (по дефолту скрыт)
+        const cart = document.querySelector('.cart');
+        const cartHeading = document.querySelector('.cart__heading');
+        const cartBox = document.querySelector('.cart__container');
+
+        // Добавляем товары в каталог на основе данных JSON
+        data.forEach(element => {
+            const product = document.createElement('div');
+            product.classList.add('product');
+            container.appendChild(product);
+
+            const imgDiv = document.createElement('div');
+            imgDiv.classList.add('product__img');
+            product.appendChild(imgDiv);
+
+            const img = document.createElement('img');
+            img.setAttribute('alt', 'product photo');
+            img.src = element.img;
+            imgDiv.appendChild(img);
+
+            const content = document.createElement('div');
+            content.classList.add('product__content');
+            product.appendChild(content);
+
+            const title = document.createElement('h1');
+            title.classList.add('product__title');
+            title.textContent = element.title;
+            content.appendChild(title);
+
+            const description = document.createElement('p');
+            description.classList.add('product__description');
+            description.textContent = element.description;
+            content.appendChild(description);
+
+            const price = document.createElement('p');
+            price.classList.add('product__price');
+            price.textContent = element.price;
+            content.appendChild(price);
+
+            // Кнопка добавления в корзину
+            const cartBtn = document.createElement('button');
+            cartBtn.classList.add('cart-btn', 'cart-btn-hover');
+            cartBtn.textContent = 'Add to cart';
+            imgDiv.appendChild(cartBtn);
+
+
+            // Наведение на карточку товара
+            product.addEventListener('mouseenter', function (e) {
+                img.classList.add('hover-img');
+                cartBtn.style.visibility = 'visible';
+            });
+
+            product.addEventListener('mouseleave', function (e) {
+                img.classList.remove('hover-img');
+                cartBtn.style.visibility = 'hidden';
+            });
+
+
+            // Рабочий вариант, не удалять:
+
+            // cartBtn.addEventListener('click', function (e) {
+            //     let chosenProduct = e.target.parentNode.parentNode;
+            //     let productToCart = chosenProduct.cloneNode(true);
+            //     productToCart.firstChild.firstChild.classList.remove('hover-img');
+            //     productToCart.firstChild.lastChild.style.visibility = 'hidden';
+            //     cart.style.display = 'block';
+            //     cartBox.appendChild(productToCart);
+            // });
+
+
+            // Клик на кнопку добавления в корзину, добавление выбранных товаров в корзины в виде других карточек
+            cartBtn.addEventListener('click', function (e) {
+
+                cart.style.display = 'block';
+
+                const productInCart = document.createElement('div');
+                productInCart.classList.add('product-in-cart');
+                cartBox.appendChild(productInCart);
+
+                const imgDivInCart = document.createElement('div');
+                // imgDivInCart.classList.add('product__img-in-cart');
+                productInCart.appendChild(imgDivInCart);
+
+                const imgInCart = document.createElement('img');
+                imgInCart.setAttribute('alt', 'product photo');
+                imgInCart.src = e.target.previousSibling.src;
+                imgDivInCart.appendChild(imgInCart);
+
+                const contentInCart = document.createElement('div');
+                contentInCart.classList.add('product__content-in-cart');
+                productInCart.appendChild(contentInCart);
+
+                const titleInCart = document.createElement('h1');
+                titleInCart.classList.add('product__title-in-cart');
+                titleInCart.textContent = e.target.parentNode.nextSibling.firstChild.innerHTML;
+                contentInCart.appendChild(titleInCart);
+
+                const iconClose = document.createElement('img');
+                iconClose.classList.add('close-icon');
+                iconClose.src = 'img/close-icon.svg';
+                iconClose.setAttribute('alt', 'close icon');
+                contentInCart.appendChild(iconClose);
+
+                const sizeInCart = document.createElement('p');
+                sizeInCart.classList.add('font');
+                sizeInCart.textContent = 'Size: M';
+                contentInCart.appendChild(sizeInCart);
+
+
+                const priceInCart = document.createElement('p');
+                priceInCart.classList.add('product__price-in-cart', 'font');
+                priceInCart.textContent = `Price: ${e.target.parentNode.nextSibling.lastChild.innerHTML}`;
+                contentInCart.appendChild(priceInCart);
+
+                // Удаление товаров из корзины и скрытие корзины, если товаров больше нет
+                iconClose.addEventListener('click', function (e) {
+                    e.target.parentNode.parentNode.remove();
+                    if (cartBox.childElementCount === 0) {
+                        cart.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
